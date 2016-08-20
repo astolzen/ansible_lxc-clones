@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  gather_facts: False
+  vars_files:
+  - vars/all.yml
+
+  tasks:
+
+  - name: Clone Container with BTRFS Snapshot
+    shell: lxc-copy -n "{{lxc_template}}" -N "{{ item.key }}" -B btrfs
+    with_dict: "{{ containers }}"
+
+  - name: inject network-config
+    shell: echo "{{ lookup('template', 'ifconfig.j2') }}" > "{{ lxc_dir }}"/"{{ item.key }}"/rootfs/etc/sysconfig/network-scripts/ifcfg-eth0
+    with_dict: "{{ containers }}"
+
+  - name: Start Containers
+    lxc_container:
+      name: "{{ item.key }}"
+      state: started
+    with_dict: "{{ containers }}"

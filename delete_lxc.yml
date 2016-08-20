@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  gather_facts: False
+  vars_files:
+  - vars/all.yml
+
+  tasks:
+
+  - name: Stop Containers
+    lxc_container:
+      name="{{ item.key }}"
+      state=stopped
+    with_dict: "{{ containers }}"
+
+  - name: Delete Containers
+    lxc_container:
+      name="{{ item.key }}"
+      state=absent
+    with_dict: "{{ containers }}"

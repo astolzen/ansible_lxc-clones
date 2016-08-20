@@ -1,0 +1,12 @@
+TYPE=ETHERNET
+NAME=eth0
+DEVICE=eth0
+BOOTPROTO=static
+IPV6INIT=no
+ONBOOT=yes
+HOSTNAME={{ item.key }}
+IPADDR={{ lxc_net.net }}.{{ item.value.id }}
+NETMASK={{ lxc_net.netmask }}
+GATEWAY={{ lxc_net.gateway }}
+DNS1={{ lxc_net.dns }}
+DOMAIN={{ lxc_net.domain }}

@@ -1,0 +1,15 @@
+lxc_dir: /var/lib/lxc/
+lxc_template: ce7t
+lxc_net:
+  net: 192.168.122
+  gateway: 192.168.122.1
+  dns: 192.168.122.1
+  netmask: 255.255.255.0
+  domain: x230.lan
+containers:
+  murks51:
+    id: 51
+  murks52:
+    id: 52
+  murks53:
+    id: 53
